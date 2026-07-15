@@ -1,0 +1,17 @@
+/* ThreadLens — content.css (v0.7.0)
+   Highlight utama di-apply lewat inline style di content.js (lebih tahan re-render React).
+   File ini cuma buat animasi "kedip" pas post ketemu via "Cari di feed".
+   Warna BIRU (sesuai brand), bukan merah/kuning — merah dipakai utk arti "hapus". */
+
+@keyframes tvdFlash {
+  0%   { box-shadow: 0 0 0 9px rgba(37, 99, 235, 0.55); }
+  100% { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.22); }
+}
+.tvd-flash {
+  animation: tvdFlash 0.85s ease-out 2;
+}
+
+/* Hormati pengguna yang minta animasi diminimalkan */
+@media (prefers-reduced-motion: reduce) {
+  .tvd-flash { animation: none; }
+}

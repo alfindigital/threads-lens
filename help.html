@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ThreadLens — Tutorial & Definisi</title>
+    <style>
+      @font-face { font-family: "Plus Jakarta Sans"; src: url("vendor/fonts/pjs-var.woff2") format("woff2"); font-weight: 200 800; }
+      :root { --blue:#2563eb; --bg:#f3f4f6; --card:#ffffff; --border:#e1e4ea; --text:#16181c; --muted:#5b5f66; }
+      body.dark { --bg:#161618; --card:#242427; --border:#3a3a3c; --text:#f4f4f5; --muted:#a2a8af; }
+      * { box-sizing: border-box; }
+      body { font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); max-width:760px; margin:0 auto; padding:30px 22px 60px; font-size:15px; line-height:1.6; }
+      h1 { font-size:24px; font-weight:800; letter-spacing:-0.02em; display:flex; align-items:center; gap:10px; }
+      h1 img { width:30px; height:30px; border-radius:8px; }
+      h2 { font-size:17px; font-weight:800; margin-top:30px; letter-spacing:-0.02em; }
+      a { color: var(--blue); }
+      ol { padding-left: 20px; }
+      ol li { margin: 7px 0; }
+      .def { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin:10px 0; }
+      .def b { color: var(--blue); }
+      code { background:var(--card); border:1px solid var(--border); padding:1px 6px; border-radius:6px; font-size:13px; }
+      table { border-collapse:collapse; width:100%; font-size:14px; margin:10px 0; }
+      td, th { border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top; }
+      .muted { color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <h1><img src="icons/icon32.png" alt="" /> ThreadLens — Tutorial</h1>
+    <p class="muted">Detektor post viral di Threads. Semua jalan di browser kamu — nggak ada data yang dikirim ke mana-mana (kecuali kalau kamu sendiri yang nyalain integrasi Notion/Todoist).</p>
+
+    <h2>Cara pakai (cepat)</h2>
+    <ol>
+      <li>Buka <b>threads.com</b> dan login.</li>
+      <li>Klik ikon <b>ThreadLens</b> di toolbar → panel muncul di kanan. (Kalau ada banner kuning "belum nyambung", klik tombolnya / refresh halaman Threads.)</li>
+      <li>(Opsional) Simpan set kriteria favoritmu sebagai <b>Preset</b> biar gampang dipakai lagi.</li>
+      <li>Atur <b>Kriteria viral</b> (ambang Like/Komentar/Repost/Share) + pilih <code>OR</code>/<code>AND</code>.</li>
+      <li>Tekan tombol <b>▶ play</b> buat auto-scroll → post viral di-highlight & masuk daftar. (Di tampilan banyak kolom, pilih 1 kolom dulu.)</li>
+      <li>Di daftar tiap kartu ada tombol: <b>◎ cari di feed</b>, <b>↗ buka</b>, <b>★ bintangi</b>, <b>✎ catatan</b>, <b>⦸ blokir author</b>.</li>
+      <li>Export pakai tombol bawah, atau <b>Copy Prompt</b> buat langsung dianalisa AI.</li>
+    </ol>
+
+    <h2>Legenda tombol bawah (footer)</h2>
+    <table>
+      <tr><th>Tombol</th><th>Fungsi</th></tr>
+      <tr><td><b>Prompt AI</b></td><td>Salin hasil sebagai <b>prompt siap-tempel ke AI</b> (Claude/ChatGPT) — minta analisa pola viral + 10 ide konten.</td></tr>
+      <tr><td><b>MD</b></td><td>Export Markdown (.md) — rapi buat dibaca AI, lengkap konteks filter.</td></tr>
+      <tr><td><b>XLSX</b></td><td>Export Excel (.xlsx) — buat report/sortir angka.</td></tr>
+      <tr><td><b>Hapus</b></td><td>Bersihkan daftar (klik <b>2×</b> buat konfirmasi).</td></tr>
+      <tr><td><b>Set</b></td><td>Buka halaman <b>Pengaturan</b> (tema, warna, blokir author, integrasi, export/import).</td></tr>
+    </table>
+
+    <h2>Definisi</h2>
+    <div class="def"><b>Skor</b> — ukuran "seberapa viral" gabungan: <code>like + komentar×3 + repost×5 + share×4</code>. Komentar/repost/share dibobot lebih tinggi karena lebih susah didapat.</div>
+    <div class="def"><b>Rising</b> — <i>like per jam</i> (<code>like ÷ umur post</code>). Buat nemu post yang <b>lagi naik daun</b>, bukan cuma yang udah lama & gede. Tampil sebagai <code>↑.../j</code>.</div>
+    <div class="def"><b>OR / AND</b> (kriteria) — <b>OR</b>: viral kalau <i>salah satu</i> metrik tembus ambang. <b>AND</b>: harus <i>semua</i> metrik aktif tembus.</div>
+    <div class="def"><b>Keyword</b> — saring post yang mengandung kata. Pisah koma (mis. <code>ai, saham</code>). <b>OR</b>=salah satu, <b>AND</b>=semua. Awali <code>-</code> untuk mengecualikan (mis. <code>-lowongan</code>).</div>
+    <div class="def"><b>Media</b> — saring jenis konten: 📄 teks, 🖼️ gambar, 🎬 video (bisa pilih beberapa).</div>
+    <div class="def"><b>Rasio komen/like</b> — <code>komentar ÷ like</code>. Tinggi = post lagi <b>rame diperdebatkan</b>.</div>
+    <div class="def"><b>Sembunyikan Repost / Requote</b> — <b>Repost</b> = post yang cuma di-bagikan-ulang ("X reposted"). <b>Requote</b> = repost sambil ngutip post lain. Centang buat fokus ke konten asli.</div>
+    <div class="def"><b>Preset</b> — simpan satu set kriteria+filter dengan nama, biar tinggal pilih ulang.</div>
+    <div class="def"><b>Pantau kolom</b> — di tampilan banyak-kolom Threads, pilih kolom mana yang dipindai (For you/Following/dll). Auto-scroll nyisir kolom itu.</div>
+    <div class="def"><b>Gabung 🧵</b> — gabungin post bersambung (1/2, 2/2) dari author yang sama jadi satu kartu, biar daftar nggak kebanjiran potongan.</div>
+    <div class="def"><b>★ Bintangi & ✎ Catatan</b> — tandai post favorit + tulis catatan ide konten. Tombol ⭐ di atas daftar buat nampilin yang dibintangi aja. (Tersimpan walau daftar di-rescan.)</div>
+    <div class="def"><b>⦸ Blokir author</b> — sembunyiin semua post dari satu akun. Kelola daftarnya di ⚙ Pengaturan → Filter author.</div>
+    <div class="def"><b>Integrasi Notion/Todoist</b> — kirim hasil langsung ke Notion (database) atau Todoist (task). Isi token di ⚙ Pengaturan; token disimpan lokal & tidak ikut saat export setelan.</div>
+    <div class="def"><b>Dipindai</b> — total post unik yang udah kelewat. <b>Viral</b> — yang lolos kriteria & tersimpan di daftar.</div>
+
+    <p class="muted" style="margin-top:30px">Deteksi meleset (angka <code>null</code>, kolom salah)? Buka <b>⚙ Pengaturan → Diagnostik</b>, klik <b>Salin diagnostik</b>, kirim ke Claude.</p>
+
+    <script src="theme-init.js"></script>
+  </body>
+</html>

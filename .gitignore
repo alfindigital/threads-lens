@@ -1,0 +1,15 @@
+# --- Privat / internal (JANGAN dipublish) ---
+.claude/
+AUDIT-360.md
+PERUBAHAN-v0.7.md
+*.log
+
+# --- OS ---
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# --- Editor ---
+.vscode/
+.idea/
+*.swp

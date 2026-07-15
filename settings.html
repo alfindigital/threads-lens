@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ThreadLens — Pengaturan</title>
+    <style>
+      @font-face { font-family: "Plus Jakarta Sans"; src: url("vendor/fonts/pjs-var.woff2") format("woff2"); font-weight: 200 800; }
+      :root { --blue:#2563eb; --ink:#16181c; --bg:#f3f4f6; --card:#ffffff; --border:#e1e4ea; --text:#16181c; --muted:#5b5f66; }
+      body.dark { --bg:#161618; --card:#242427; --border:#3a3a3c; --text:#f4f4f5; --muted:#a2a8af; --ink:#f4f4f5; }
+      * { box-sizing: border-box; }
+      body { font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); max-width:640px; margin:0 auto; padding:30px 22px 60px; font-size:15px; }
+      h1 { font-size:23px; font-weight:800; letter-spacing:-0.02em; display:flex; align-items:center; gap:10px; }
+      h1 img { width:28px; height:28px; border-radius:7px; }
+      h2 { font-size:15px; font-weight:800; margin:26px 0 10px; letter-spacing:-0.02em; }
+      .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:6px 14px; }
+      .row { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px solid var(--border); }
+      .row:last-child { border-bottom:none; }
+      .row.col { flex-direction:column; align-items:stretch; }
+      .row .label { font-weight:600; }
+      .row .sub { color:var(--muted); font-size:12.5px; font-weight:400; margin-top:2px; }
+      select, input[type=number], input[type=text], input[type=password], textarea { font-family:inherit; font-size:14px; color:var(--text); background:var(--bg); border:1px solid var(--border); border-radius:9px; padding:8px; }
+      input[type=number] { width:90px; }
+      input[type=text], input[type=password] { width:100%; margin-top:8px; }
+      textarea { width:100%; margin-top:8px; min-height:64px; resize:vertical; }
+      input[type=color] { width:46px; height:34px; border:1px solid var(--border); border-radius:9px; background:var(--bg); cursor:pointer; }
+      input[type=checkbox] { transform: scale(1.4); accent-color: var(--blue); }
+      button { font-family:inherit; font-weight:700; font-size:13.5px; border:none; border-radius:10px; padding:10px 14px; cursor:pointer; }
+      .btn-blue { background:var(--blue); color:#fff; }
+      .btn-ghost { background:var(--bg); color:var(--text); border:1px solid var(--border); }
+      .btn-dark { background:var(--ink); color:var(--bg); }
+      body.dark .btn-dark { background:#000; color:#fff; }
+      .btns { display:flex; gap:10px; flex-wrap:wrap; }
+      a.link { color:var(--blue); text-decoration:none; font-weight:700; }
+      :focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+      .note { color:var(--muted); font-size:12.5px; margin-top:8px; }
+      .toast { position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:var(--ink); color:var(--bg); padding:10px 16px; border-radius:10px; opacity:0; transition:.25s; }
+      body.dark .toast { background:#000; color:#fff; }
+      .toast.show { opacity:1; }
+    </style>
+  </head>
+  <body>
+    <h1><img src="icons/icon32.png" alt="" /> Pengaturan ThreadLens <span style="font-size:13px;color:var(--muted);font-weight:600">v0.7.1</span></h1>
+
+    <h2>Tampilan</h2>
+    <div class="card">
+      <div class="row"><div><div class="label">Tema</div></div>
+        <select id="theme"><option value="light">Terang</option><option value="dark">Gelap</option></select></div>
+      <div class="row"><div><div class="label">Urutan default</div></div>
+        <select id="default-sort"><option value="recent">Terbaru</option><option value="score">Skor</option><option value="rising">Rising</option><option value="likes">Likes</option><option value="comments">Komentar</option><option value="reposts">Repost</option><option value="shares">Share</option></select></div>
+      <div class="row"><div><div class="label">Warna highlight</div><div class="sub">Warna kotak di post viral & "cari di feed"</div></div>
+        <input type="color" id="highlight-color" /></div>
+      <div class="row"><div><div class="label">Redupkan post non-viral</div><div class="sub">Biar yang viral makin nonjol di feed</div></div>
+        <input type="checkbox" id="dim" /></div>
+      <div class="row"><div><div class="label">Maks. item di daftar</div><div class="sub">Lebih besar = riwayat lebih banyak tapi lebih berat (20–5000)</div></div>
+        <input type="number" id="max-items" min="20" max="5000" step="10" /></div>
+    </div>
+
+    <h2>Filter author</h2>
+    <div class="card">
+      <div class="row col"><div><div class="label">Author yang diblokir</div><div class="sub">Username (tanpa @), pisah koma/baris. Post dari mereka disembunyikan.</div></div>
+        <textarea id="blocked" placeholder="contoh: spambot, akun_iklan"></textarea>
+        <div class="btns" style="margin-top:8px"><button class="btn-blue" id="save-blocked">Simpan daftar blokir</button></div>
+      </div>
+    </div>
+
+    <h2>Integrasi (opsional)</h2>
+    <div class="card">
+      <div class="row col"><div><div class="label">Notion</div><div class="sub">Buat "Internal Integration" di notion.so/my-integrations, share database-nya ke integrasi itu, lalu isi token + Database ID.</div></div>
+        <input type="password" id="notion-token" placeholder="Notion Integration Token (secret_...)" autocomplete="off" />
+        <input type="text" id="notion-db" placeholder="Notion Database ID" autocomplete="off" />
+      </div>
+      <div class="row col"><div><div class="label">Todoist</div><div class="sub">Ambil API token di Todoist → Settings → Integrations → Developer. Project opsional (nama persis).</div></div>
+        <input type="password" id="todoist-token" placeholder="Todoist API Token" autocomplete="off" />
+        <input type="text" id="todoist-project" placeholder="Nama project (opsional, default Inbox)" autocomplete="off" />
+      </div>
+      <div class="row"><div><div class="label">Simpan integrasi</div><div class="sub">Disimpan LOKAL di komputermu & TIDAK ikut saat "Export setelan".</div></div>
+        <button class="btn-blue" id="save-integrations">Simpan</button></div>
+    </div>
+
+    <h2>Data & setelan</h2>
+    <div class="card">
+      <div class="row"><div><div class="label">Export setelan</div><div class="sub">Simpan setelan + preset ke file .json (token integrasi TIDAK disertakan)</div></div>
+        <button class="btn-blue" id="export-btn">Export</button></div>
+      <div class="row"><div><div class="label">Import setelan</div><div class="sub">Muat dari file .json</div></div>
+        <button class="btn-ghost" id="import-btn">Pilih file…</button><input type="file" id="import-file" accept=".json,application/json" style="display:none" /></div>
+      <div class="row"><div><div class="label">Hapus riwayat</div><div class="sub">Kosongkan daftar viral yang tersimpan (setelan & preset tetap aman)</div></div>
+        <button class="btn-ghost" id="clearhist-btn">Hapus</button></div>
+      <div class="row"><div><div class="label">Reset semua setelan</div><div class="sub">Balik ke default (preset & bintang tetap aman)</div></div>
+        <button class="btn-dark" id="reset-btn">Reset</button></div>
+    </div>
+
+    <h2>Lainnya</h2>
+    <div class="card">
+      <div class="row"><div class="label">Tutorial & definisi</div><a class="link" href="help.html">Buka →</a></div>
+      <div class="row"><div class="label">Diagnostik (Debug)</div><a class="link" href="advanced.html">Buka →</a></div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="shared.js"></script>
+    <script src="settings.js"></script>
+  </body>
+</html>

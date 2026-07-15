@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <header class="tvd-header">
+      <div class="tvd-brand"><img src="icons/icon32.png" class="brand-ico" alt="" /> ThreadLens</div>
+      <div class="header-btns">
+        <button id="help" class="icon-btn" title="Tutorial & definisi" aria-label="Tutorial & definisi"><span class="ico" data-ico="help"></span></button>
+        <button id="theme-toggle" class="icon-btn" title="Ganti tema terang/gelap" aria-label="Ganti tema"><span class="ico" data-ico="moon"></span></button>
+      </div>
+    </header>
+
+    <!-- Banner koneksi: muncul kalau panel belum nyambung ke halaman Threads -->
+    <div id="conn-banner" class="conn-banner" style="display: none">
+      <span id="conn-text">Buka <b>threads.com</b> lalu <b>refresh</b> halamannya biar ThreadLens nyambung.</span>
+      <button id="conn-action" class="conn-btn">Refresh halaman Threads</button>
+    </div>
+
+    <main class="tvd-main">
+      <!-- Preset -->
+      <section class="card">
+        <div class="field">
+          <label for="preset">Preset</label>
+          <select id="preset" aria-label="Pilih preset kriteria"><option value="">— pilih preset —</option></select>
+        </div>
+        <input id="preset-name" type="text" class="preset-name" placeholder="nama preset baru…" aria-label="Nama preset baru" />
+        <div class="preset-btns">
+          <button id="preset-save">Simpan preset</button>
+          <button id="preset-del" class="ghost-btn">Hapus preset</button>
+        </div>
+        <div class="hint">Preset menyimpan <b>kriteria + filter</b> (bukan kolom/kecepatan scroll).</div>
+      </section>
+
+      <!-- Sumber & filter -->
+      <section class="card">
+        <div class="field">
+          <label for="crawl">Pantau kolom</label>
+          <select id="crawl" aria-label="Kolom yang dipantau"><option value="all">Semua</option></select>
+        </div>
+        <div class="field">
+          <label for="range">Periode</label>
+          <select id="range" aria-label="Periode waktu post">
+            <option value="1d">1 hari terakhir</option>
+            <option value="7d">7 hari terakhir</option>
+            <option value="30d">30 hari terakhir</option>
+            <option value="lifetime">Semua waktu</option>
+          </select>
+        </div>
+
+        <div class="kw-block">
+          <div class="kw-head">
+            <label for="keyword">Keyword</label>
+            <div class="segmented" id="keyword-logic" role="group" aria-label="Logika keyword">
+              <button data-val="OR" class="active" title="Mengandung salah satu kata">OR</button>
+              <button data-val="AND" title="Harus mengandung semua kata">AND</button>
+            </div>
+          </div>
+          <input id="keyword" type="text" class="kw-field" placeholder="kata1, kata2 · pakai -kata untuk kecualikan" aria-label="Keyword filter" />
+        </div>
+
+        <div class="field media-field">
+          <label id="media-label">Media</label>
+          <div class="media-toggles" id="media" role="group" aria-labelledby="media-label">
+            <button data-media="text" class="active" title="Post teks saja" aria-label="Media: teks"><span class="ico" data-ico="text"></span></button>
+            <button data-media="image" class="active" title="Post dengan gambar" aria-label="Media: gambar"><span class="ico" data-ico="image"></span></button>
+            <button data-media="video" class="active" title="Post dengan video" aria-label="Media: video"><span class="ico" data-ico="video"></span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kriteria -->
+      <section class="card">
+        <div class="card-head">
+          <span class="card-title">Kriteria viral</span>
+          <div class="segmented" id="logic" role="group" aria-label="Logika kriteria">
+            <button data-val="OR" class="active" title="Viral kalau salah satu metrik tembus ambang">OR</button>
+            <button data-val="AND" title="Viral kalau semua metrik aktif tembus ambang">AND</button>
+          </div>
+        </div>
+        <div class="hint hint-logic" id="logic-hint">OR = cukup salah satu metrik tembus · AND = harus semua.</div>
+
+        <div class="metric" data-key="likes">
+          <label><input type="checkbox" class="m-on" aria-label="Aktifkan kriteria Likes" /> <span class="ico" data-ico="heart"></span> Likes</label>
+          <span class="m-thr">≥ <input type="number" class="m-min" min="0" step="1" aria-label="Ambang Likes" /></span>
+        </div>
+        <div class="metric" data-key="comments">
+          <label><input type="checkbox" class="m-on" aria-label="Aktifkan kriteria Komentar" /> <span class="ico" data-ico="comment"></span> Komentar</label>
+          <span class="m-thr">≥ <input type="number" class="m-min" min="0" step="1" aria-label="Ambang Komentar" /></span>
+        </div>
+        <div class="metric" data-key="reposts">
+          <label><input type="checkbox" class="m-on" aria-label="Aktifkan kriteria Repost" /> <span class="ico" data-ico="repost"></span> Repost</label>
+          <span class="m-thr">≥ <input type="number" class="m-min" min="0" step="1" aria-label="Ambang Repost" /></span>
+        </div>
+        <div class="metric" data-key="shares">
+          <label><input type="checkbox" class="m-on" aria-label="Aktifkan kriteria Share" /> <span class="ico" data-ico="share"></span> Share</label>
+          <span class="m-thr">≥ <input type="number" class="m-min" min="0" step="1" aria-label="Ambang Share" /></span>
+        </div>
+        <div class="metric ratio-row">
+          <label for="min-ratio" title="komentar ÷ like — tinggi = lagi rame diperdebatkan">Rasio komen/like</label>
+          <span class="m-thr">≥ <input type="number" id="min-ratio" min="0" step="0.05" aria-label="Ambang rasio komen per like" /></span>
+        </div>
+
+        <div class="hide-row">
+          <span class="hide-label">Sembunyikan</span>
+          <label class="hide-chk" title="Sembunyikan repost"><input type="checkbox" id="exclude-reposts" /><span class="ico" data-ico="repost"></span> Repost</label>
+          <label class="hide-chk" title="Sembunyikan requote"><input type="checkbox" id="exclude-quotes" /><span class="ico" data-ico="quote"></span> Requote</label>
+        </div>
+      </section>
+
+      <!-- Auto-scroll -->
+      <section class="card">
+        <div class="scroll-row">
+          <button id="scroll-btn" class="icon-btn scroll" title="Auto-scroll" aria-label="Mulai / stop auto-scroll"><span class="ico" data-ico="play"></span></button>
+          <div class="speed"><span class="spd-end" aria-hidden="true">−</span><input id="speed" type="range" min="1" max="5" step="1" aria-label="Kecepatan auto-scroll" /><span class="spd-end" aria-hidden="true">+</span></div>
+        </div>
+        <div class="hint" id="scroll-hint">Di tampilan banyak kolom, <b>pilih 1 kolom</b> dulu di "Pantau kolom" biar auto-scroll nyangkut ke kolom itu.</div>
+      </section>
+
+      <!-- Hasil -->
+      <div class="results-head">
+        <span class="stats" id="stats" aria-live="polite">Dipindai: 0 • Viral: 0</span>
+        <div class="rh-right">
+          <button id="star-filter" class="chip-toggle" title="Tampilkan hanya yang dibintangi" aria-label="Filter dibintangi" aria-pressed="false"><span class="ico" data-ico="star"></span></button>
+          <select id="sort" title="Urutkan" aria-label="Urutkan hasil">
+            <option value="recent">Terbaru</option>
+            <option value="score">Skor</option>
+            <option value="rising">Rising</option>
+            <option value="likes">Likes</option>
+            <option value="comments">Komentar</option>
+            <option value="reposts">Repost</option>
+            <option value="shares">Share</option>
+          </select>
+        </div>
+      </div>
+      <div class="subhead">
+        <label class="mini-chk" title="Gabung post bersambung (1/2, 2/2) jadi satu kartu"><input type="checkbox" id="merge-threads" /> Gabung 🧵</label>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div class="search-wrap">
+        <span class="ico" data-ico="search" aria-hidden="true"></span>
+        <input id="search" type="text" placeholder="cari di hasil…" aria-label="Cari di hasil" />
+      </div>
+
+      <div id="list" class="list"></div>
+      <div id="empty" class="empty">Belum ada data. Buka <b>threads.com</b>, lalu tekan tombol <b>▶ play</b> di atas untuk mulai memindai.</div>
+    </main>
+
+    <!-- Kirim ke integrasi (muncul kalau token diisi di ⚙ Pengaturan) -->
+    <div id="send-bar" class="send-bar" style="display: none">
+      <span class="send-label">Kirim hasil:</span>
+      <button id="send-notion" class="send-btn" style="display: none">→ Notion</button>
+      <button id="send-todoist" class="send-btn" style="display: none">→ Todoist</button>
+    </div>
+
+    <footer class="tvd-footer">
+      <button id="copy-prompt" class="fbtn" title="Copy sebagai prompt ide konten untuk AI" aria-label="Copy sebagai prompt AI"><span class="ico" data-ico="prompt"></span><span class="fbtn-label">Prompt AI</span></button>
+      <button id="export-md" class="fbtn" title="Export Markdown (.md)" aria-label="Export Markdown"><span class="ico" data-ico="md"></span><span class="fbtn-label">MD</span></button>
+      <button id="export-xlsx" class="fbtn" title="Export Excel (.xlsx)" aria-label="Export Excel"><span class="ico" data-ico="xlsx"></span><span class="fbtn-label">XLSX</span></button>
+      <button id="clear" class="fbtn danger" title="Bersihkan daftar (klik 2x)" aria-label="Bersihkan daftar"><span class="ico" data-ico="trash"></span><span class="fbtn-label">Hapus</span></button>
+      <button id="settings" class="fbtn ghost" title="Pengaturan" aria-label="Pengaturan"><span class="ico" data-ico="gear"></span><span class="fbtn-label">Set</span></button>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="vendor/xlsx-mini.js"></script>
+    <script src="shared.js"></script>
+    <script src="sidepanel.js"></script>
+  </body>
+</html>

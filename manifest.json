@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "ThreadLens",
+  "version": "0.7.1",
+  "description": "ThreadLens — deteksi & sorot post viral di Threads (like/komentar/repost/share): filter, skor, rising, preset niche, gabung thread, export .md/.xlsx/.json/AI-prompt, kirim ke Notion/Todoist. Di Side Panel Chrome.",
+  "action": {
+    "default_title": "ThreadLens — detektor post viral Threads",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "permissions": ["storage", "sidePanel", "tabs", "scripting", "unlimitedStorage"],
+  "host_permissions": [
+    "https://www.threads.com/*",
+    "https://threads.com/*",
+    "https://www.threads.net/*",
+    "https://threads.net/*",
+    "https://api.notion.com/*",
+    "https://api.todoist.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.threads.com/*",
+        "https://threads.com/*",
+        "https://www.threads.net/*",
+        "https://threads.net/*"
+      ],
+      "js": ["shared.js", "content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
