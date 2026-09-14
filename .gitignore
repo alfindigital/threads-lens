@@ -31,6 +31,8 @@ secrets/
 .gemini/
 .lovable/
 .cursor/
+.claude/
+*-backup-*/
 
 # Test artifacts
 playwright-report/
