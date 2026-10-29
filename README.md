@@ -1,5 +1,7 @@
 # ThreadLens 🔎
 
+> **Versi:** 0.7.1 (`manifest.json`, lihat `CHANGELOG.md`) · **Status (30 Okt 2026):** dijeda sejak 27 Okt 2026, tidak dikembangkan aktif.
+
 **Chrome extension (Manifest V3) buat mendeteksi & menyorot post viral di [Threads](https://www.threads.com) — langsung dari Side Panel Chrome.** Atur ambang engagement kamu sendiri (like / komentar / repost / share), filter, skor, lalu export hasilnya buat riset konten.
 
 > **EN:** A Chrome side-panel extension that detects and highlights viral posts on Threads based on your own engagement thresholds — filter, score, and export results for content research. **100% local, no server, no tracking.**
